@@ -1,9 +1,31 @@
 import React from "react";
-import { Accordion, Dropdown } from "react-bootstrap";
+import { Accordion, Card, Dropdown, ListGroup, Toast } from "react-bootstrap";
 
 function Main() {
     return (
         <div className="geral">
+
+            <h1 style={{backgroundColor: "lightblue"}}>Hello Style!</h1>
+
+            <Card style={{ width: '18rem' }}>
+                <ListGroup variant="flush">
+                    <ListGroup.Item>Cras justo odio</ListGroup.Item>
+                    <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
+                    <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+                </ListGroup>
+            </Card>
+
+
+            <Toast>
+                <Toast.Header>
+                    <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+                    <strong className="me-auto">Bootstrap</strong>
+                    <small>11 mins ago</small>
+                </Toast.Header>
+                <Toast.Body>Hello, world! This is a toast message.</Toast.Body>
+            </Toast>
+
+
 
             <Dropdown>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -26,7 +48,14 @@ function Main() {
                         <p class="card-text">Texto do card.</p>
                     </div>
                 </div>
+
+
+
             </div>
+
+
+
+
 
             <Accordion defaultActiveKey="0">
                 <Accordion.Item eventKey="0">

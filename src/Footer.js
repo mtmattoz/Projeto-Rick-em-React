@@ -12,11 +12,13 @@ function Footer(props) {
         }
     }, [contagem]);
 
+    //Função disparada no onClick do buttom 
     const apresentaMenu = () => {
         setContagem(contagem + 1)
-        // alert("Cheguei aqui....")
+      //  alert("Cheguei aqui....")
     }
 
+    //Função disparada do useEffect 
     const apresentarAlerta = () => {
         alert("Cheguei aqui e sou igual a 10....")
     }
@@ -49,6 +51,8 @@ ternario
 
     return (
         contagem < 10 ? (
+<>
+            <h1> Pagina com o Footer </h1>
             <div className="geral">
                 <div className="alert alert-primary" role="alert">
                     Rodapé Alerta!
@@ -62,8 +66,12 @@ ternario
 
             </div>
 
+</>  
+
         ) : <p> maior que 10</p>
     );
+
+    
 }
 
 export default Footer;
