@@ -7,14 +7,14 @@ import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { useState } from 'react';
 import logox from './logo.svg';
 import React  from 'react';
+import Fipe from './Fipe';
 
 function App() {
   const [menu, setMenu] = useState(0)
 
   return (
     <>
-
-      {/* <> Fragment React - encapsula html */}
+     {/* <> Fragment React - encapsula html */}
 
       <Navbar expand="lg" className="bg-body-tertiary">
         <Container>
@@ -24,6 +24,7 @@ function App() {
             <Nav className="me-auto">
               <Nav.Link onClick={() => setMenu(1)}>Login</Nav.Link>
               <Nav.Link onClick={() => setMenu(2)}>Cep</Nav.Link>
+              <Nav.Link onClick={() => setMenu(5)}>Fipe</Nav.Link>
               <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                 <NavDropdown.Item onClick={() => setMenu(3)}>Main</NavDropdown.Item>
                 <NavDropdown.Item onClick={() => setMenu(4)}>Footer</NavDropdown.Item>
@@ -41,6 +42,7 @@ function App() {
         insta="@marcosamiguel"
         whats="32 98401-5080"
       />}
+      {menu === 5 && <Fipe/>}
     </>
   );
 }
