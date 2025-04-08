@@ -14,7 +14,7 @@ function App() {
 
   return (
     <>
-     {/* <> Fragment React - encapsula html */}
+     {/* <> Fragment React - encapsula html - Novo */}
 
       <Navbar expand="lg" className="bg-body-tertiary">
         <Container>
