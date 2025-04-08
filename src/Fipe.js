@@ -24,7 +24,7 @@ function Fipe() {
         // Remove tudo que não for número
         const codigoFipeNum = form.codigoFipe.replace(/\D/g, "");
         if (codigoFipeNum.length < 1) {
-            alert("Codigo fipe inválido");
+            alert("Codigo fipe inválido ++++ ");
             return;
         }
         // Chama a API da tabela Fipe
