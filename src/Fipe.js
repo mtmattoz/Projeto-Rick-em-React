@@ -12,8 +12,7 @@ function Fipe() {
 
     const submit = (event) => {
        // event.preventDefault();
-
-        alert("Dados Gravados com sucesso");
+        alert("Dados Gravados com sucesso ++");
     }
 
     const consultarFipe = (event) => {
@@ -29,7 +28,8 @@ function Fipe() {
         }
         // Chama a API da tabela Fipe
         axios.get(`https://brasilapi.com.br/api/fipe/preco/v1/${form.codigoFipe}`).then((res) => {
-            const { codigoFipe, valor, marca, modelo, anoModelo, mesReferencia} = res.data[res.data.length - 1];
+            const { codigoFipe, valor, marca, modelo, anoModelo, mesReferencia} = 
+                res.data[res.data.length - 1];
             setForm({ "codigoFipe": codigoFipe, "valor": valor, "marca": marca, "modelo": modelo, "anoModelo": anoModelo, "mesReferencia": mesReferencia })
         }).catch((error) => {
           //  console.log(error);
