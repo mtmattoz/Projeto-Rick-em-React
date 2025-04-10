@@ -12,7 +12,7 @@ function Fipe() {
 
     const submit = (event) => {
        // event.preventDefault();
-        alert("Dados Gravados com sucesso ++");
+        alert("Dados Gravados com sucesso");
     }
 
     const consultarFipe = (event) => {
