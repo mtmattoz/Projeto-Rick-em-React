@@ -1,113 +1,45 @@
-import axios from "axios";
-import React, { useState } from "react";
-import { Button, Card, Form } from "react-bootstrap";
+// src/components/DDDService.js
+import React, { useState } from 'react';
+import axios from 'axios';
+import { Form, Button, Alert } from 'react-bootstrap';
 
-function Fipe() {
-    const [form, setForm] = useState({ codigoFipe: "", valor: "", marca: "", modelo: "", anoModelo: "", mesReferencia: "" })
+const DDDService = () => {
+  const [ddd, setDdd] = useState('');
+  const [data, setData] = useState(null);
+  const [erro, setErro] = useState('');
 
-    const handleChangeForm = (event) => {
-        setForm({ ...form, [event.target.name]: event.target.value })
-        
+  const buscarDDD = async () => {
+    try {
+      const response = await axios.get(`https://brasilapi.com.br/api/ddd/v1/${ddd}`);
+      setData(response.data);
+      setErro('');
+    } catch (err) {
+      setErro('DDD inválido ou erro na requisição.');
+      setData(null);
     }
+  };
 
-    const submit = (event) => {
-       // event.preventDefault();
-        alert("Dados Gravados com sucesso");
-    }
+  return (
+    <div className="container mt-4">
+      <h3>Consulta por DDD</h3>
+      <Form.Group>
+        <Form.Label>Digite o DDD:</Form.Label>
+        <Form.Control
+          type="text"
+          value={ddd}
+          onChange={(e) => setDdd(e.target.value)}
+        />
+      </Form.Group>
+      <Button className="mt-2" onClick={buscarDDD}>Buscar</Button>
 
-    const consultarFipe = (event) => {
-        if (form.codigoFipe.length < 1) {
-            alert("Informe o codigo fipe");
-            return;
-        }
-        // Remove tudo que não for número
-        const codigoFipeNum = form.codigoFipe.replace(/\D/g, "");
-        if (codigoFipeNum.length < 1) {
-            alert("Codigo fipe inválido ++++ ");
-            return;
-        }
-        // Chama a API da tabela Fipe
-        axios.get(`https://brasilapi.com.br/api/fipe/preco/v1/${form.codigoFipe}`).then((res) => {
-            const { codigoFipe, valor, marca, modelo, anoModelo, mesReferencia} = 
-                res.data[res.data.length - 1];
-            setForm({ "codigoFipe": codigoFipe, "valor": valor, "marca": marca, "modelo": modelo, "anoModelo": anoModelo, "mesReferencia": mesReferencia })
-        }).catch((error) => {
-          //  console.log(error);
-            alert(error.response.data.message); 
-        }
-        );
-    };
+      {erro && <Alert variant="danger" className="mt-3">{erro}</Alert>}
+      {data && (
+        <pre className="mt-3 bg-light p-3 border rounded">
+          {JSON.stringify(data, null, 2)}
+        </pre>
+      )}
+    </div>
+  );
+};
 
-
-    return (
-        <>
-            <Card className="mt-4" style={{ width: 400 }}>
-                <Card.Body>
-                    <Card.Title>Consulta tabela Fipe</Card.Title>
-                    <Form onSubmit={submit}>
-                        <Form.Group className="meuPadraoFormGroup">
-                            <Form.Label>Codigo Fipe</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Informe o Codigo Fipe ex. 038003-2 001556-3"
-                                name="codigoFipe"
-                                value={form.codigoFipe}
-                                onInput={handleChangeForm}
-                                onBlur={consultarFipe}
-                            />
-
-                            <Button
-                                variant="primary"
-                                onClick={consultarFipe}
-                            >
-                                Consultar
-                            </Button>
-                        </Form.Group>
-
-                        <Form.Group className="meuPadraoFormGroup">
-                            <Form.Text className="text-muted">
-                                Valor: {form.valor}
-                            </Form.Text>
-                        </Form.Group>
-
-                        <Form.Group className="meuPadraoFormGroup">
-                            <Form.Text className="text-muted">
-                                Ano modelo: {form.anoModelo}
-                            </Form.Text>
-                        </Form.Group>
-
-                        <Form.Group className="meuPadraoFormGroup">
-                            <Form.Text className="text-muted">
-                                Marca: {form.marca}
-                            </Form.Text>
-                        </Form.Group>
-
-                        <Form.Group className="meuPadraoFormGroup">
-                            <Form.Text className="text-muted">
-                                Modelo: {form.modelo}
-                            </Form.Text>
-                        </Form.Group>
-
-                        <Form.Group className="meuPadraoFormGroup">
-                            <Form.Text className="text-muted">
-                                Mês Referencia: {form.mesReferencia}
-                            </Form.Text>
-                        </Form.Group>
-
-                        <Button
-                               variant="success"
-                               size="lg"
-                               className="w-100"
-                               type="submit"
-                            >
-                                Gravar
-                        </Button>
-
-                    </Form>
-                </Card.Body>
-            </Card>
-        </>
-    );
-}
-
-export default Fipe;
+export default DDDService;

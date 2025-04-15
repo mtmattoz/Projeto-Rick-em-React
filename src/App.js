@@ -22,13 +22,10 @@ function App() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link onClick={() => setMenu(1)}>Login</Nav.Link>
-              <Nav.Link onClick={() => setMenu(2)}>Cep</Nav.Link>
-              <Nav.Link onClick={() => setMenu(5)}>Fipe</Nav.Link>
-              <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                <NavDropdown.Item onClick={() => setMenu(3)}>Main</NavDropdown.Item>
-                <NavDropdown.Item onClick={() => setMenu(4)}>Footer</NavDropdown.Item>
-              </NavDropdown>
+              
+              <Nav.Link onClick={() => setMenu(2)}>IBGE</Nav.Link>
+              <Nav.Link onClick={() => setMenu(5)}>DDD</Nav.Link>
+              
             </Nav>
           </Navbar.Collapse>
         </Container>
