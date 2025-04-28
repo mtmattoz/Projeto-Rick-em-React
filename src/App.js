@@ -8,13 +8,14 @@ import { useState } from 'react';
 import logox from './logo.svg';
 import React  from 'react';
 import Fipe from './Fipe';
+import Email from './Email';
 
 function App() {
   const [menu, setMenu] = useState(0)
 
   return (
     <>
-     {/* <> Fragment React - encapsula html - Novo */}
+     {/* <> Fragment React - encapsula html - Novo*/}
 
       <Navbar expand="lg" className="bg-body-tertiary">
         <Container>
@@ -25,6 +26,7 @@ function App() {
               <Nav.Link onClick={() => setMenu(1)}>Login</Nav.Link>
               <Nav.Link onClick={() => setMenu(2)}>Cep</Nav.Link>
               <Nav.Link onClick={() => setMenu(5)}>Fipe</Nav.Link>
+              <Nav.Link onClick={() => setMenu(6)}>Email</Nav.Link>
               <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                 <NavDropdown.Item onClick={() => setMenu(3)}>Main</NavDropdown.Item>
                 <NavDropdown.Item onClick={() => setMenu(4)}>Footer</NavDropdown.Item>
@@ -43,6 +45,7 @@ function App() {
         whats="32 98401-5080"
       />}
       {menu === 5 && <Fipe/>}
+      {menu === 6 && <Email/>}
     </>
   );
 }
