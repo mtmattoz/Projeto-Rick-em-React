@@ -1,114 +1,45 @@
-import axios from "axios";
-import React, { useState } from "react";
-import { Button, Card, Form } from "react-bootstrap";
+// src/components/IBGEService.js
+import React, { useState } from 'react';
+import axios from 'axios';
+import { Form, Button, Alert } from 'react-bootstrap';
 
-function Aside() {
-    const [form, setForm] = useState({ cep: "", nro: "", logradouro: "", bairro: "", localidade: "", estado: "" })
+const IBGEService = () => {
+  const [uf, setUf] = useState('');
+  const [data, setData] = useState(null);
+  const [erro, setErro] = useState('');
 
-    const handleChangeForm = (event) => {
-        setForm({ ...form, [event.target.name]: event.target.value })
+  const buscarMunicipios = async () => {
+    try {
+      const response = await axios.get(`https://brasilapi.com.br/api/ibge/municipios/v1/${uf}`);
+      setData(response.data);
+      setErro('');
+    } catch (err) {
+      setErro('UF inválida ou erro na requisição.');
+      setData(null);
     }
+  };
 
-    const submit = (event) => {
-       // event.preventDefault();
+  return (
+    <div className="container mt-4">
+      <h3>Municípios por UF</h3>
+      <Form.Group>
+        <Form.Label>Digite a sigla do estado (ex: SP):</Form.Label>
+        <Form.Control
+          type="text"
+          value={uf}
+          onChange={(e) => setUf(e.target.value.toUpperCase())}
+        />
+      </Form.Group>
+      <Button className="mt-2" onClick={buscarMunicipios}>Buscar</Button>
 
-        alert("Dados Gravados com sucesso");
-    }
+      {erro && <Alert variant="danger" className="mt-3">{erro}</Alert>}
+      {data && (
+        <pre className="mt-3 bg-light p-3 border rounded">
+          {JSON.stringify(data, null, 2)}
+        </pre>
+      )}
+    </div>
+  );
+};
 
-    const consultarCep = (event) => {
-        // Remove tudo que não for número
-        const cepNum = form.cep.replace(/\D/g, "");
-
-        if (cepNum.length === 8) {
-            axios.get(`https://viacep.com.br/ws/${cepNum}/json/`).then((res) => {
-                if (res.data.erro && res.data.erro === "true") {
-                    alert("Cep não encontrado");
-                } else {
-                    const { logradouro, bairro, localidade, estado } = res.data;
-                    setForm({ "logradouro": logradouro, "bairro": bairro, "localidade": localidade, "estado": estado })
-
-                    alert("Achei seu cep");
-                }
-            });
-        } else {
-            alert("Cep inválido");
-        }
-    };
-
-
-    return (
-        <>
-            <Card className="mt-4" style={{ width: 400 }}>
-                <Card.Body>
-                    <Card.Title>Consulta serviço de CEP</Card.Title>
-                    <Form onSubmit={submit}>
-                        <Form.Group className="meuPadraoFormGroup">
-                            <Form.Label>CEP</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Informe o CEP"
-                                name="cep"
-                                value={form.cep}
-                                onChange={handleChangeForm}
-                            />
-
-                            <Button
-                                variant="primary"
-                                onClick={consultarCep}
-                            >
-                                Consultar
-                            </Button>
-                        </Form.Group>
-
-                        <Form.Group className="meuPadraoFormGroup">
-                            <Form.Text className="text-muted">
-                                Logradouro: {form.logradouro}
-                            </Form.Text>
-                        </Form.Group>
-
-                        <Form.Group className="d-flex align-items-center mb-3" style={{gap: 5}}>
-                            <Form.Label>Nro</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Informe o nro"
-                                name="nro"
-                                value={form.nro}
-                                onChange={handleChangeForm}
-                            />
-                        </Form.Group>
-
-                        <Form.Group className="meuPadraoFormGroup">
-                            <Form.Text className="text-muted">
-                                Bairro: {form.bairro}
-                            </Form.Text>
-                        </Form.Group>
-
-                        <Form.Group className="meuPadraoFormGroup">
-                            <Form.Text className="text-muted">
-                                Localidade: {form.localidade}
-                            </Form.Text>
-                        </Form.Group>
-
-                        <Form.Group className="meuPadraoFormGroup" >
-                            <Form.Text className="text-muted">
-                                Estado: {form.estado}
-                            </Form.Text>
-                        </Form.Group>
-
-                        <Button
-                               variant="success"
-                               size="lg"
-                               className="w-100"
-                               type="submit"
-                            >
-                                Gravar
-                        </Button>
-
-                    </Form>
-                </Card.Body>
-            </Card>
-        </>
-    );
-}
-
-export default Aside;
+export default IBGEService;
