@@ -55,7 +55,6 @@ function Email() {
                                 onInput={handleChangeForm}
                             />
                         </Form.Group>
-
                    
                         <Form.Group className="meuPadraoFormGroup">
                             <Form.Label>Email</Form.Label>
@@ -67,7 +66,6 @@ function Email() {
                                 onInput={handleChangeForm}
                             />
                         </Form.Group>
-
 
                         <Form.Group className="meuPadraoFormGroup">
                             <Form.Label>Mensagem</Form.Label>
