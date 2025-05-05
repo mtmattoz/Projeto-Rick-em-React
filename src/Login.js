@@ -19,7 +19,7 @@ function Login(props) {
         if (form.login === "marcos" && form.senha === "123") {
             alert("Logado com sucesso!")
             
-            navigate('/email'); // Redireciona para a página de main
+            navigate('/email'); // Redireciona para a página de email
 
         } else {
             alert("Usuario e senha invalidos!")
