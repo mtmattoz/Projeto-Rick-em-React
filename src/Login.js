@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
-function Header(props) {
+function Login(props) {
 
     const [form, setForm] = useState({ login: "", senha: "", cep: "" })
+    const navigate = useNavigate();
 
     const handleChangeForm = (event) => {
         setForm({ ...form, [event.target.name]: event.target.value })
@@ -16,7 +18,9 @@ function Header(props) {
 
         if (form.login === "marcos" && form.senha === "123") {
             alert("Logado com sucesso!")
-            window.location = "/"  // Navega para a home
+            
+            navigate('/email'); // Redireciona para a página de main
+
         } else {
             alert("Usuario e senha invalidos!")
         }
@@ -97,4 +101,4 @@ function Header(props) {
     }
 }
 
-export default Header;
+export default Login;

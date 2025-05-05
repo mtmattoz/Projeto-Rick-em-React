@@ -22,6 +22,7 @@ function Email() {
             name: form.nome,
             message: form.mensagem,
             reply_to: form.email,
+            to_name: "Marcos",
         };
         // Chama a API do emailjs       
 
@@ -34,7 +35,8 @@ function Email() {
                 alert("Erro ao enviar email");
             });
 
-        event.preventDefault();
+        
+            ;
 
     };
 
