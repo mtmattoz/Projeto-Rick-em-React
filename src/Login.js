@@ -19,6 +19,8 @@ function Login(props) {
         if (form.login === "marcos" && form.senha === "123") {
             alert("Logado com sucesso!")
             
+            localStorage.setItem('auth', 'true'); // Grava no localStorage o valor de auth
+            
             navigate('/email'); // Redireciona para a página de email
 
         } else {
