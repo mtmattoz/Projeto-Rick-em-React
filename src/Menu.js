@@ -30,7 +30,7 @@ const Menu = ({ children }) => {
                                 <Nav.Link><Link to="/"> Login </Link> </Nav.Link>
                                 <Nav.Link> <Link to="/cep"> Cep </Link> </Nav.Link>
                                 <Nav.Link onClick={handleFipe}> Fipe</Nav.Link>
-                                <Nav.Link> <Link to="/email"> Email </Link> </Nav.Link>
+                                <Nav.Link> <Link to="/personagens"> Personagens </Link> </Nav.Link>
                            
                                 <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                                     <NavDropdown.Item> <Link to="/main"> Main </Link> </NavDropdown.Item>

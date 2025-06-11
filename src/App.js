@@ -4,7 +4,7 @@ import Main from './Main';
 import Footer from './Footer';
 import React from 'react';
 import Fipe from './Fipe';
-import Email from './Email';
+import Personagens from "./Personagens";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { lazy } from 'react';
 import { Suspense } from 'react';
@@ -43,7 +43,7 @@ function App() {
               insta="@marcosamiguel"
               whats="32 98401-5080" /> </Menu>} />
             <Route path="/fipe" element={<Menu> <Fipe /> </Menu>} />
-            <Route path="/email" element={<Menu> <Email /> </Menu>} />
+            <Route path="/personagens" element={<Menu><Personagens /> </Menu>} />
             <Route path="/cep" element={<Menu><Aside /> </Menu>} />
             <Route path="*" element={<Menu>  <h1> 404 </h1> </Menu>} />
 

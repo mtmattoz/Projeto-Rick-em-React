@@ -21,7 +21,7 @@ function Login(props) {
             
             localStorage.setItem('auth', 'true'); // Grava no localStorage o valor de auth
             
-            navigate('/email'); // Redireciona para a página de email
+            navigate('/Personagens'); // Redireciona para a página de email
 
         } else {
             alert("Usuario e senha invalidos!")
