@@ -1,14 +1,14 @@
 import './App.css';
-import Aside from './Aside';
 import Main from './Main';
 import Footer from './Footer';
 import React from 'react';
-import Fipe from './Fipe';
 import Personagens from "./Personagens";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { lazy } from 'react';
 import { Suspense } from 'react';
 import { RingLoader } from 'react-spinners';
+import Localizacao from './Localizacao';
+import Episodios from './Episodios';
 
 function delayImport(factory, delay = 2000) {
   return new Promise((resolve) => {
@@ -42,9 +42,9 @@ function App() {
             <Route path="/footer" element={<Menu> <Footer
               insta="@marcosamiguel"
               whats="32 98401-5080" /> </Menu>} />
-            <Route path="/fipe" element={<Menu> <Fipe /> </Menu>} />
+            <Route path="/Episodios" element={<Menu> <Episodios /> </Menu>} />
             <Route path="/personagens" element={<Menu><Personagens /> </Menu>} />
-            <Route path="/cep" element={<Menu><Aside /> </Menu>} />
+            <Route path="/localizacao" element={<Menu><Localizacao /> </Menu>} />
             <Route path="*" element={<Menu>  <h1> 404 </h1> </Menu>} />
 
           </Routes>
