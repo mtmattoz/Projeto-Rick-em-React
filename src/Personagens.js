@@ -1,36 +1,84 @@
 import React, { useEffect, useState } from "react";
-import { Card, Container, Row, Col } from "react-bootstrap";
+import axios from "axios";
 
 function Personagens() {
-  const [personagens, setPersonagens] = useState([]);
+  const [characters, setCharacters] = useState([]);
+  const [search, setSearch] = useState("");
+  const [filtered, setFiltered] = useState([]);
 
   useEffect(() => {
-    fetch("https://rickandmortyapi.com/api/character")
-      .then((res) => res.json())
-      .then((data) => setPersonagens(data.results));
+    const fetchAllCharacters = async () => {
+      let allCharacters = [];
+      let nextUrl = "https://rickandmortyapi.com/api/character";
+
+      while (nextUrl) {
+        const res = await axios.get(nextUrl);
+        allCharacters = [...allCharacters, ...res.data.results];
+        nextUrl = res.data.info.next;
+      }
+
+      setCharacters(allCharacters);
+      setFiltered(allCharacters);
+    };
+
+    fetchAllCharacters();
   }, []);
 
+  useEffect(() => {
+    const results = characters.filter((char) =>
+      char.name.toLowerCase().includes(search.toLowerCase())
+    );
+    setFiltered(results);
+  }, [search, characters]);
+
   return (
-    <Container className="mt-4">
-      <h2>Personagens de Rick and Morty</h2>
-      <Row>
-        {personagens.map((personagem) => (
-          <Col key={personagem.id} xs={12} sm={6} md={4} lg={3} className="mb-4">
-            <Card>
-              <Card.Img variant="top" src={personagem.image} />
-              <Card.Body>
-                <Card.Title>{personagem.name}</Card.Title>
-                <Card.Text>
-                  <strong>Status:</strong> {personagem.status}<br />
-                  <strong>Espécie:</strong> {personagem.species}<br />
-                  <strong>Origem:</strong> {personagem.origin.name}
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
+    <div style={{ backgroundColor: "#1e1e2f", minHeight: "100vh", color: "#fff", padding: "20px" }}>
+      <input
+        type="text"
+        placeholder="Pesquisar personagem..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        style={{
+          display: "block",
+          margin: "0 auto 20px auto",
+          padding: "10px",
+          width: "80%",
+          maxWidth: "400px",
+          borderRadius: "5px",
+          fontSize: "16px",
+        }}
+      />
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))",
+          gap: "20px",
+        }}
+      >
+        {filtered.map((char) => (
+          <div
+            key={char.id}
+            style={{
+              backgroundColor: "#2e2e3f",
+              borderRadius: "10px",
+              overflow: "hidden",
+              textAlign: "center",
+              padding: "10px",
+              boxShadow: "0 4px 10px rgba(0,0,0,0.5)",
+            }}
+          >
+            <img
+              src={char.image}
+              alt={char.name}
+              style={{ width: "100%", borderRadius: "8px" }}
+            />
+            <h3>{char.name}</h3>
+            <p>{char.species}</p>
+            <p>{char.status}</p>
+          </div>
         ))}
-      </Row>
-    </Container>
+      </div>
+    </div>
   );
 }
 
