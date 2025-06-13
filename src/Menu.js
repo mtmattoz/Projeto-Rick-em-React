@@ -10,9 +10,9 @@ const Menu = ({ children }) => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        localStorage.removeItem('auth'); // Remove o item auth do localStorage
-        alert("Logout realizado com sucesso!"); // Alerta de sucesso
-        navigate('/'); // Redireciona para a página de fipe
+        localStorage.removeItem('auth');
+        alert("Logout realizado com sucesso!"); 
+        navigate('/'); 
     }
 
     return (
@@ -45,7 +45,7 @@ const Menu = ({ children }) => {
                 </Navbar>
 
 
-                {children} {/* Renderiza o conteudo do componente filho*/}
+                {children} {}
 
 
                 <footer className="bg-light text-center text-lg-start">
