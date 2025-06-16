@@ -12,7 +12,7 @@ function delayImport(factory, delay = 3000) {
   });
 }
 
-// Lazy load dos componentes
+
 const Menu = lazy(() => delayImport(() => import('./Menu'), 2000));
 const Login = lazy(() => delayImport(() => import('./Login'), 2000));
 const Main = lazy(() => delayImport(() => import('./Main'), 2000));
@@ -21,7 +21,7 @@ const Personagens = lazy(() => delayImport(() => import('./Personagens'), 2000))
 const Localizacao = lazy(() => delayImport(() => import('./Localizacao'), 2000));
 const Episodios = lazy(() => delayImport(() => import('./Episodios'), 2000));
 
-// Componente intermediário que detecta mudança de rota
+
 function AppContent() {
   const location = useLocation();
   const [loading, setLoading] = useState(true);
@@ -30,7 +30,7 @@ function AppContent() {
     setLoading(true);
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2000); // 2 segundos de loading
+    }, 2000); 
 
     return () => clearTimeout(timer);
   }, [location.pathname]);

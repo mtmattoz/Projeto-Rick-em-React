@@ -1,11 +1,11 @@
-/* RickMortyLoading.css */
+
 .loading-container {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #000; /* fundo escuro ou qualquer outra cor */
+  background-color: #000;
   display: flex;
   flex-direction: column;
   justify-content: center;
