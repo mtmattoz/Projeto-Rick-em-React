@@ -1,16 +1,10 @@
 import './App.css';
-import Main from './Main';
-import Footer from './Footer';
-import React from 'react';
-import Personagens from "./Personagens";
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { lazy } from 'react';
-import { Suspense } from 'react';
-import { RingLoader } from 'react-spinners';
-import Localizacao from './Localizacao';
-import Episodios from './Episodios';
+import RickMortyLoading from './RickMortyLoading';
 
-function delayImport(factory, delay = 2000) {
+function delayImport(factory, delay = 3000) {
   return new Promise((resolve) => {
     setTimeout(() => {
       factory().then(resolve);
@@ -18,41 +12,53 @@ function delayImport(factory, delay = 2000) {
   });
 }
 
+// Lazy load dos componentes
 const Menu = lazy(() => delayImport(() => import('./Menu'), 2000));
-const Login = lazy(() => delayImport(() => import('./Login'), 3000));
+const Login = lazy(() => delayImport(() => import('./Login'), 2000));
+const Main = lazy(() => delayImport(() => import('./Main'), 2000));
+const Footer = lazy(() => delayImport(() => import('./Footer'), 3000));
+const Personagens = lazy(() => delayImport(() => import('./Personagens'), 2000));
+const Localizacao = lazy(() => delayImport(() => import('./Localizacao'), 2000));
+const Episodios = lazy(() => delayImport(() => import('./Episodios'), 2000));
 
+// Componente intermediário que detecta mudança de rota
+function AppContent() {
+  const location = useLocation();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000); // 2 segundos de loading
+
+    return () => clearTimeout(timer);
+  }, [location.pathname]);
+
+  if (loading) {
+    return <RickMortyLoading />;
+  }
+
+  return (
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="/main" element={<Menu><Main /></Menu>} />
+      <Route path="/footer" element={<Menu><Footer insta="@marcosamiguel" whats="32 98401-5080" /></Menu>} />
+      <Route path="/Episodios" element={<Menu><Episodios /></Menu>} />
+      <Route path="/personagens" element={<Menu><Personagens /></Menu>} />
+      <Route path="/localizacao" element={<Menu><Localizacao /></Menu>} />
+      <Route path="*" element={<Menu><h1>404</h1></Menu>} />
+    </Routes>
+  );
+}
 
 function App() {
   return (
-    <>
-      {/* <> Fragment React - encapsula html - Novo*/}
-
-      <BrowserRouter>
-
-        {/*  <Suspense fallback={<div>Aguarde carregando a pagina...</div>}> */}
-
-        <Suspense fallback={<div className="d-flex align-items-center flex-column vh-100 justify-content-center text-center py-3 suspense-loading">
-          <div className="d-flex align-items-center flex-column px-4"><RingLoader color={'#3c44b1'} loading={true} /></div>
-          <div className="text-muted font-size-xl text-center pt-3"> Aguarde enquanto preparamos tudo para você'</div>
-        </div>}>
-
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/main" element={<Menu> <Main /> </Menu>} />
-            <Route path="/footer" element={<Menu> <Footer
-              insta="@marcosamiguel"
-              whats="32 98401-5080" /> </Menu>} />
-            <Route path="/Episodios" element={<Menu> <Episodios /> </Menu>} />
-            <Route path="/personagens" element={<Menu><Personagens /> </Menu>} />
-            <Route path="/localizacao" element={<Menu><Localizacao /> </Menu>} />
-            <Route path="*" element={<Menu>  <h1> 404 </h1> </Menu>} />
-
-          </Routes>
-        </Suspense>
-      </BrowserRouter>
-
-    </>
-
+    <BrowserRouter>
+      <React.Suspense fallback={<RickMortyLoading />}>
+        <AppContent />
+      </React.Suspense>
+    </BrowserRouter>
   );
 }
 

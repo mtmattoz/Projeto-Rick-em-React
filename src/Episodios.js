@@ -35,7 +35,7 @@ const Episodios = () => {
             display: 'inline-block',
             fontSize: '2.5rem',
             fontWeight: '700',
-            color: '#fff',
+            color: '#fff', 
             textShadow: '0 0 8px #fff',
             backgroundColor: '#000',
             padding: '10px 20px',
