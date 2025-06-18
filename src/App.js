@@ -12,7 +12,7 @@ function delayImport(factory, delay = 3000) {
   });
 }
 
-
+const Erro404Rick = lazy(() => delayImport(() => import('./Erro404Rick'), 1500));
 const Menu = lazy(() => delayImport(() => import('./Menu'), 2000));
 const Login = lazy(() => delayImport(() => import('./Login'), 2000));
 const Main = lazy(() => delayImport(() => import('./Main'), 2000));
@@ -20,6 +20,7 @@ const Footer = lazy(() => delayImport(() => import('./Footer'), 3000));
 const Personagens = lazy(() => delayImport(() => import('./Personagens'), 2000));
 const Localizacao = lazy(() => delayImport(() => import('./Localizacao'), 2000));
 const Episodios = lazy(() => delayImport(() => import('./Episodios'), 2000));
+const Sobre = lazy(() => delayImport(() => import('./Sobre'), 2000));
 
 
 function AppContent() {
@@ -47,7 +48,8 @@ function AppContent() {
       <Route path="/Episodios" element={<Menu><Episodios /></Menu>} />
       <Route path="/personagens" element={<Menu><Personagens /></Menu>} />
       <Route path="/localizacao" element={<Menu><Localizacao /></Menu>} />
-      <Route path="*" element={<Menu><h1>404</h1></Menu>} />
+      <Route path="/sobre" element={<Menu><Sobre /></Menu>} />
+      <Route path="*" element={<Menu><Erro404Rick /></Menu>} />
     </Routes>
   );
 }

@@ -30,6 +30,7 @@ const Menu = ({ children }) => {
                                 <Nav.Link> <Link to="/Localizacao"> Mapa </Link> </Nav.Link>
                                 <Nav.Link> <Link to="/Episodios"> Episodios </Link> </Nav.Link>
                                 <Nav.Link> <Link to="/personagens"> Personagens </Link> </Nav.Link>
+                                <Nav.Link><Link to="/sobre"> Sobre </Link></Nav.Link>
                            
                                 <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                                     <NavDropdown.Item> <Link to="/main"> Main </Link> </NavDropdown.Item>
