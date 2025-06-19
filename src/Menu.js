@@ -1,4 +1,4 @@
-import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Container, Nav, Navbar} from 'react-bootstrap';
 import logox from './logo.png';
 import rickLogo from './Rick_and_Morty.webp';
 import { Link, useNavigate } from 'react-router-dom';
@@ -30,8 +30,6 @@ const Menu = ({ children }) => {
                                 <Nav.Link> <Link to="/Episodios"> Episodios </Link> </Nav.Link>
                                 <Nav.Link> <Link to="/personagens"> Personagens </Link> </Nav.Link>
                                 <Nav.Link><Link to="/sobre"> Sobre </Link></Nav.Link>
-                           
-                               
                                 <Nav.Link onClick={handleLogout}> <RiLogoutCircleRLine color={"#3c44b1"} size={24} /> </Nav.Link>
                            
                            
