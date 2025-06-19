@@ -1,8 +1,4 @@
 {
-<<<<<<< HEAD
-  "dependencies": {
-    "react-router-dom": "^7.6.2"
-=======
   "name": "primeiroprojetodwfe",
   "version": "0.1.0",
   "private": true,
@@ -43,6 +39,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
->>>>>>> 3b22bfac384431fcba104989d49c190163a826b4
   }
 }
+

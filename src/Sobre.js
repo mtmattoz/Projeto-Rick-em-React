@@ -1,153 +1,182 @@
 import React from "react";
+import ReactLogo from "./assets/react-logo.png";
+import MortyIcon from "./assets/morty-icon.png";
 
 const Sobre = () => {
+  const integrantes = [
+    {
+      nome: "Mateus de Mattos",
+      github: "https://github.com/mtmattoz",
+      whatsapp: "(32) 98865-3876",
+    },
+    {
+      nome: "Lucas Diniz",
+      github: "https://github.com/Lucasdinis2",
+      whatsapp: "(32) 98512-5335",
+    },
+  ];
+
   return (
     <div
       style={{
-        backgroundColor: "#0b0c10",
+        background: "linear-gradient(to bottom, #0f0f1b, #1c1c2e)",
         minHeight: "100vh",
-        color: "#66fcf1",
-        fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-        padding: "2rem 3rem",
-        textShadow: "1px 1px 8px #000",
-        display: "flex",
-        flexDirection: "column",
-        gap: "3rem",
-        maxWidth: "900px",
-        margin: "0 auto",
+        color: "#aaffcc",
+        padding: "30px 5vw",
+        fontFamily: "'Orbitron', 'Segoe UI', sans-serif",
       }}
     >
-      <section
+      <h1
         style={{
-          backgroundColor: "#1e1e2f",
-          borderRadius: "15px",
-          padding: "20px",
-          boxShadow: "0 0 15px #45a29e",
+          textAlign: "center",
+          fontSize: "3rem",
+          backgroundColor: "transparent",
+          color: "#7df9ff",
+          marginBottom: "40px",
+          textShadow: "2px 2px #00ffcc",
         }}
       >
-        <h2
-          style={{
-            marginBottom: "12px",
-            textShadow: "0 0 10px #45a29e",
-          }}
-        >
-          Sobre o Projeto
-        </h2>
-        <p style={{ lineHeight: "1.6" }}>
-          Este projeto é uma aplicação React que consome a API do Rick and Morty,
-          permitindo a navegação pelos personagens, episódios e outras informações
-          do universo da série.
+        Sobre o Projeto Rick & Morty
+      </h1>
+
+      <div style={cardStyle}>
+        <h2 style={cardTitle}>Descrição</h2>
+        <p style={cardText}>
+          Esse projeto foi desenvolvido usando <strong>React</strong> e a{" "}
+          <strong>API oficial de Rick and Morty</strong>. Ele exibe
+          personagens, episódios e localizações do multiverso, tudo com uma
+          pegada futurista e estilizada. A ideia é colocar em prática o consumo
+          de APIs, roteamento e componentização moderna.
         </p>
-      </section>
+      </div>
 
-      <section
-        style={{
-          backgroundColor: "#1e1e2f",
-          borderRadius: "15px",
-          padding: "20px",
-          boxShadow: "0 0 15px #45a29e",
-        }}
-      >
-        <h2
+      <div style={cardStyle}>
+        <h2 style={cardTitle}>Tecnologias Utilizadas</h2>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <ul
+            style={{
+              listStyle: "none",
+              padding: 0,
+              fontSize: "1.1rem",
+              color: "#aaffcc",
+              marginRight: "20px",
+            }}
+          >
+            <li>React</li>
+            <li>React Router DOM</li>
+            <li>Axios</li>
+            <li>API Rick and Morty</li>
+            <li>React-Bootstrap</li>
+          </ul>
+          <img
+            src={ReactLogo}
+            alt="React Logo"
+            style={{
+              width: "200px",
+              height: "auto",
+              filter: "drop-shadow(0 0 10px #00ffcc)",
+            }}
+          />
+        </div>
+      </div>
+
+      <div style={cardStyle}>
+        <h2 style={cardTitle}>Integrantes</h2>
+        <div
           style={{
-            marginBottom: "12px",
-            textShadow: "0 0 10px #45a29e",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "20px",
+            marginTop: "20px",
           }}
         >
-          Tecnologias Utilizadas
-        </h2>
-        <ul style={{ lineHeight: "1.6", paddingLeft: "1.5rem" }}>
-          <li>React</li>
-          <li>Axios</li>
-          <li>React Router</li>
-          <li>CSS-in-JS (estilos inline)</li>
-          <li>API Rick and Morty</li>
-        </ul>
-      </section>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+              gap: "20px",
+              flex: 1,
+            }}
+          >
+            {integrantes.map((int, idx) => (
+              <div
+                key={idx}
+                style={{
+                  backgroundColor: "#202030",
+                  border: "2px solid #39ff14",
+                  borderRadius: "10px",
+                  padding: "15px",
+                  boxShadow: "0 0 15px #39ff14aa",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  gap: "8px",
+                  minHeight: "140px",
+                  color: "#fff",
+                }}
+              >
+                <h3 style={{ marginBottom: "8px" }}>{int.nome}</h3>
+                <p style={{ margin: 0, whiteSpace: "nowrap" }}>
+                  <strong>GitHub: </strong>
+                  <a
+                    href={int.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      color: "#00ffe0",
+                      textDecoration: "none",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {int.github.replace("https://", "")}
+                  </a>
+                </p>
+                <p style={{ margin: 0, whiteSpace: "nowrap", marginTop: "5px" }}>
+                  <strong>WhatsApp: </strong> {int.whatsapp}
+                </p>
+              </div>
+            ))}
+          </div>
 
-      <section
-        style={{
-          backgroundColor: "#1e1e2f",
-          borderRadius: "15px",
-          padding: "20px",
-          boxShadow: "0 0 15px #45a29e",
-        }}
-      >
-        <h2
-          style={{
-            marginBottom: "12px",
-            textShadow: "0 0 10px #45a29e",
-          }}
-        >
-          Sobre a Dupla
-        </h2>
-        <p style={{ lineHeight: "1.6" }}>
-          Somos dois desenvolvedores web e fãs da série Rick and Morty.
-          Este projeto foi feito com muito empenho para unir diversão e aprendizado.
-        </p>
-      </section>
-
-      <section
-        style={{
-          backgroundColor: "#1e1e2f",
-          borderRadius: "15px",
-          padding: "20px",
-          boxShadow: "0 0 15px #45a29e",
-        }}
-      >
-        <h2
-          style={{
-            marginBottom: "12px",
-            textShadow: "0 0 10px #45a29e",
-          }}
-        >
-          Redes Sociais
-        </h2>
-        <ul style={{ lineHeight: "1.6", paddingLeft: "1.5rem" }}>
-          <li>
-            <strong>Mateus:</strong>{" "}
-            <a
-              href="https://github.com/seuGitMateus"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: "#66fcf1", textDecoration: "underline" }}
-            >
-              GitHub
-            </a>{" "}
-            |{" "}
-            <a
-              href="https://www.linkedin.com/in/seuLinkedinMateus"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: "#66fcf1", textDecoration: "underline" }}
-            >
-              LinkedIn
-            </a>
-          </li>
-          <li>
-            <strong>Seu Parceiro:</strong>{" "}
-            <a
-              href="https://github.com/seuGitParceiro"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: "#66fcf1", textDecoration: "underline" }}
-            >
-              GitHub
-            </a>{" "}
-            |{" "}
-            <a
-              href="https://www.linkedin.com/in/seuLinkedinParceiro"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: "#66fcf1", textDecoration: "underline" }}
-            >
-              LinkedIn
-            </a>
-          </li>
-        </ul>
-      </section>
+          <img
+            src={MortyIcon}
+            alt="Morty Icon"
+            style={{
+              width: "200px 80%",
+              height: "200px 80%",
+              objectFit: "contain",
+              filter: "drop-shadow(0 0 10px #39ff14)",
+            }}
+          />
+        </div>
+      </div>
     </div>
   );
+};
+
+const cardStyle = {
+  backgroundColor: "#2c2c3c",
+  border: "2px solid #00ffcc",
+  borderRadius: "12px",
+  padding: "20px",
+  marginBottom: "30px",
+  boxShadow: "0 0 12px #00ffcc88",
+  width: "100%",
+};
+
+const cardTitle = {
+  textAlign: "center",
+  marginBottom: "15px",
+  color: "#7df9ff",
+  fontSize: "1.8rem",
+  textShadow: "1px 1px #00ffc3",
+};
+
+const cardText = {
+  fontSize: "1.1rem",
+  lineHeight: "1.7",
+  textAlign: "justify",
 };
 
 export default Sobre;
