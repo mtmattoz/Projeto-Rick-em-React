@@ -5,6 +5,7 @@ function Personagens() {
   const [characters, setCharacters] = useState([]);
   const [search, setSearch] = useState("");
   const [filtered, setFiltered] = useState([]);
+  const [locationTypes, setLocationTypes] = useState({});
 
   useEffect(() => {
     const fetchAllCharacters = async () => {
@@ -29,6 +30,29 @@ function Personagens() {
       char.name.toLowerCase().includes(search.toLowerCase())
     );
     setFiltered(results);
+
+    const fetchLocationTypes = async () => {
+      const newLocationTypes = {};
+      const uniqueLocations = new Set(
+        results.map((char) => char.location.url).filter((url) => url)
+      );
+
+      const requests = Array.from(uniqueLocations).map(async (url) => {
+        try {
+          const res = await axios.get(url);
+          newLocationTypes[url] = res.data.type;
+        } catch {
+          newLocationTypes[url] = "Desconhecido";
+        }
+      });
+
+      await Promise.all(requests);
+      setLocationTypes(newLocationTypes);
+    };
+
+    if (results.length > 0) {
+      fetchLocationTypes();
+    }
   }, [search, characters]);
 
   return (
@@ -51,7 +75,7 @@ function Personagens() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))",
+          gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
           gap: "20px",
         }}
       >
@@ -63,7 +87,7 @@ function Personagens() {
               borderRadius: "10px",
               overflow: "hidden",
               textAlign: "center",
-              padding: "10px",
+              padding: "15px",
               boxShadow: "0 4px 10px rgba(0,0,0,0.5)",
             }}
           >
@@ -73,8 +97,12 @@ function Personagens() {
               style={{ width: "100%", borderRadius: "8px" }}
             />
             <h3>{char.name}</h3>
-            <p>{char.species}</p>
-            <p>{char.status}</p>
+            <p><strong>Espécie:</strong> {char.species}</p>
+            <p><strong>Status:</strong> {char.status}</p>
+            <p><strong>Gênero:</strong> {char.gender}</p>
+            <p><strong>Origem:</strong> {char.origin.name}</p>
+            <p><strong>Local atual:</strong> {char.location.name}</p>
+            <p><strong>Tipo do local:</strong> {locationTypes[char.location.url] || "Carregando..."}</p>
           </div>
         ))}
       </div>
