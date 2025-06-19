@@ -26,17 +26,12 @@ const Menu = ({ children }) => {
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="me-auto">
-                                <Nav.Link><Link to="/"> Login </Link> </Nav.Link>
                                 <Nav.Link> <Link to="/Localizacao"> Mapa </Link> </Nav.Link>
                                 <Nav.Link> <Link to="/Episodios"> Episodios </Link> </Nav.Link>
                                 <Nav.Link> <Link to="/personagens"> Personagens </Link> </Nav.Link>
                                 <Nav.Link><Link to="/sobre"> Sobre </Link></Nav.Link>
                            
-                                <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                                    <NavDropdown.Item> <Link to="/main"> Main </Link> </NavDropdown.Item>
-                                    <NavDropdown.Item> <Link to="/footer"> Footer </Link></NavDropdown.Item>
-                                </NavDropdown>
-                           
+                               
                                 <Nav.Link onClick={handleLogout}> <RiLogoutCircleRLine color={"#3c44b1"} size={24} /> </Nav.Link>
                            
                            
@@ -52,7 +47,7 @@ const Menu = ({ children }) => {
                 <footer className="bg-light text-center text-lg-start">
                     <div className="text-center p-3" style={{ backgroundColor: "lightblue" }}>
                         © 2025 MM:
-                        <a className="text-dark" href="https://uniacademia.edu.br" target='_blank' rel="noreferrer" > Desenvolvimento Front End </a>
+                        <a className="text-dark" href="https://www.instagram.com/lucas_dinizzx/" target='_blank' rel="noreferrer" > Desenvolvimento Front End </a>
                     </div>
                 </footer>
 
