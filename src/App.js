@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { lazy } from 'react';
 import RickMortyLoading from './RickMortyLoading';
+import RouteTracker from './RouteTracker';
 
 function delayImport(factory, delay = 3000) {
   return new Promise((resolve) => {
@@ -22,7 +23,6 @@ const Localizacao = lazy(() => delayImport(() => import('./Localizacao'), 2000))
 const Episodios = lazy(() => delayImport(() => import('./Episodios'), 2000));
 const Sobre = lazy(() => delayImport(() => import('./Sobre'), 2000));
 
-
 function AppContent() {
   const location = useLocation();
   const [loading, setLoading] = useState(true);
@@ -31,8 +31,7 @@ function AppContent() {
     setLoading(true);
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2000); 
-
+    }, 2000);
     return () => clearTimeout(timer);
   }, [location.pathname]);
 
@@ -57,6 +56,7 @@ function AppContent() {
 function App() {
   return (
     <BrowserRouter>
+      <RouteTracker /> 
       <React.Suspense fallback={<RickMortyLoading />}>
         <AppContent />
       </React.Suspense>

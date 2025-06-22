@@ -3,9 +3,8 @@ import { Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import bgImage from './assets/rick.webp';
 
-
 function Login(props) {
-  const [form, setForm] = useState({ login: "", senha: "", cep: "" });
+  const [form, setForm] = useState({ login: "", senha: "", email: "" });
   const navigate = useNavigate();
 
   const handleChangeForm = (event) => {
@@ -18,6 +17,7 @@ function Login(props) {
     if (form.login === "marcos" && form.senha === "123") {
       alert("Logado com sucesso!");
       localStorage.setItem("auth", "true");
+      localStorage.setItem("userEmail", form.email); 
       navigate("/Personagens");
     } else {
       alert("Usuario e senha invalidos!");
@@ -32,21 +32,20 @@ function Login(props) {
         className="login-container"
         style={{
           backgroundImage: `url(${bgImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          height: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          padding: '1rem'
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          height: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: "1rem",
         }}
       >
         <h1 className="portal-title text-center">
-  Portal de Acesso Interdimensional
-</h1>
-
+          Portal de Acesso Interdimensional
+        </h1>
 
         <Form className="login-form" onSubmit={hanldeSubmitForm}>
           <Form.Group className="mb-3">
@@ -71,6 +70,19 @@ function Login(props) {
               name="senha"
             />
             <Form.Text className="text-muted">Digite sua senha...</Form.Text>
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Email para rastreamento</Form.Label>
+            <Form.Control
+              onChange={handleChangeForm}
+              value={form.email}
+              type="email"
+              placeholder="Email"
+              name="email"
+              required
+            />
+            <Form.Text className="text-muted">Informe seu e‑mail para receber alertas de navegação</Form.Text>
           </Form.Group>
 
           <Button variant="primary" type="submit" className="w-100">

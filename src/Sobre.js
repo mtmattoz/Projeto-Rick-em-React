@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactLogo from "./assets/react-logo.png";
 import MortyIcon from "./assets/morty-icon.png";
+import emailjs from "emailjs-com";
 
 const Sobre = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [mensagem, setMensagem] = useState("");
+  const [enviado, setEnviado] = useState(false);
+
   const integrantes = [
     {
       nome: "Mateus de Mattos",
@@ -15,6 +21,35 @@ const Sobre = () => {
       whatsapp: "(32) 98512-5335",
     },
   ];
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .send(
+        "service_luqnkbv", 
+        "template_fvel4hj", 
+        {
+          user_name: name,
+          user_email: email,
+          message: mensagem,
+        },
+        "3FzkE4FlUgKmq3F9L"
+      )
+      .then(
+        (response) => {
+          alert("Mensagem enviada com sucesso!");
+          setEnviado(true);
+          setName("");
+          setEmail("");
+          setMensagem("");
+        },
+        (error) => {
+          alert("Erro ao enviar mensagem. Por favor, tente novamente.");
+          console.error(error);
+        }
+      );
+  };
 
   return (
     <div
@@ -45,14 +80,20 @@ const Sobre = () => {
           Esse projeto foi desenvolvido usando <strong>React</strong> e a{" "}
           <strong>API oficial de Rick and Morty</strong>. Ele exibe
           personagens, episódios e localizações do multiverso, tudo com uma
-          pegada futurista e estilizada. A ideia é colocar em prática o consumo
-          de APIs, roteamento e componentização moderna.
+          pegada futurista e estilizada. A ideia é colocar em prática o
+          consumo de APIs, roteamento e componentização moderna.
         </p>
       </div>
 
       <div style={cardStyle}>
         <h2 style={cardTitle}>Tecnologias Utilizadas</h2>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
           <ul
             style={{
               listStyle: "none",
@@ -143,13 +184,57 @@ const Sobre = () => {
             src={MortyIcon}
             alt="Morty Icon"
             style={{
-              width: "200px 80%",
-              height: "200px 80%",
+              width: "200px",
+              height: "200px",
               objectFit: "contain",
               filter: "drop-shadow(0 0 10px #39ff14)",
             }}
           />
         </div>
+      </div>
+
+      <div style={cardStyle}>
+        <h2 style={cardTitle}>Contato por E‑mail</h2>
+        {enviado ? (
+          <p style={{ textAlign: "center", fontSize: "1.2rem", color: "#39ff14" }}>
+            Sua mensagem foi enviada com sucesso!
+          </p>
+        ) : (
+          <form onSubmit={handleSubmit} style={formStyle}>
+            <label style={labelStyle}>
+              Nome:
+              <input
+                style={inputStyle}
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </label>
+            <label style={labelStyle}>
+              E‑mail:
+              <input
+                style={inputStyle}
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </label>
+            <label style={labelStyle}>
+              Mensagem:
+              <textarea
+                style={textAreaStyle}
+                value={mensagem}
+                onChange={(e) => setMensagem(e.target.value)}
+                required
+              />
+            </label>
+            <button style={submitButtonStyle} type="submit">
+              Enviar
+            </button>
+          </form>
+        )}
       </div>
     </div>
   );
@@ -177,6 +262,56 @@ const cardText = {
   fontSize: "1.1rem",
   lineHeight: "1.7",
   textAlign: "justify",
+};
+
+const formStyle = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "15px",
+  maxWidth: "500px",
+  margin: "0 auto",
+};
+
+const labelStyle = {
+  fontSize: "1.1rem",
+  display: "flex",
+  flexDirection: "column",
+  gap: "5px",
+};
+
+const inputStyle = {
+  padding: "10px",
+  fontSize: "1rem",
+  borderRadius: "6px",
+  border: "1px solid #00ffcc",
+  backgroundColor: "#1c1c2e",
+  color: "#aaffcc",
+  width: "100%",
+  boxSizing: "border-box",
+};
+
+const textAreaStyle = {
+  padding: "10px",
+  fontSize: "1rem",
+  borderRadius: "6px",
+  border: "1px solid #00ffcc",
+  backgroundColor: "#1c1c2e",
+  color: "#aaffcc",
+  minHeight: "100px",
+  width: "100%",
+  boxSizing: "border-box",
+};
+
+const submitButtonStyle = {
+  padding: "12px",
+  fontSize: "1.1rem",
+  borderRadius: "8px",
+  border: "none",
+  cursor: "pointer",
+  backgroundColor: "#00ffcc",
+  color: "#1c1c2e",
+  fontWeight: "bold",
+  boxShadow: "0 0 8px #00ffcc",
 };
 
 export default Sobre;
