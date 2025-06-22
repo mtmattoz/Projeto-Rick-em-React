@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import bgImage from './assets/rick.webp';
+import emailjs from '@emailjs/browser';
 
 function Login(props) {
   const [form, setForm] = useState({ login: "", senha: "", email: "" });
@@ -14,13 +15,34 @@ function Login(props) {
   const hanldeSubmitForm = (event) => {
     event.preventDefault();
 
-    if (form.login === "marcos" && form.senha === "123") {
+    if (form.login === "mateus" && form.senha === "123") {
       alert("Logado com sucesso!");
       localStorage.setItem("auth", "true");
-      localStorage.setItem("userEmail", form.email); 
+      localStorage.setItem("userEmail", form.email);
+
+      const templateParams = {
+        user_name: form.login,
+        from_email: form.email,
+        message: ` "${form.login}" acabou de fazer login.`,
+      };
+
+      emailjs
+        .send(
+          "service_luqnkbv",
+          "template_fvel4hj",
+          templateParams,
+          "3FzkE4FlUgKmq3F9L"
+        )
+        .then(() => {
+          console.log("E-mail de login enviado!");
+        })
+        .catch((error) => {
+          console.error("Erro ao enviar e-mail de login:", error);
+        });
+
       navigate("/Personagens");
     } else {
-      alert("Usuario e senha invalidos!");
+      alert("Usuário e senha inválidos!");
     }
   };
 
@@ -82,7 +104,9 @@ function Login(props) {
               name="email"
               required
             />
-            <Form.Text className="text-muted">Informe seu e‑mail para receber alertas de navegação</Form.Text>
+            <Form.Text className="text-muted">
+              Informe seu e‑mail para receber alertas de navegação
+            </Form.Text>
           </Form.Group>
 
           <Button variant="primary" type="submit" className="w-100">

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactLogo from "./assets/react-logo.png";
 import MortyIcon from "./assets/morty-icon.png";
-import emailjs from "emailjs-com";
+import emailjs from '@emailjs/browser';
 
 const Sobre = () => {
   const [name, setName] = useState("");
@@ -27,11 +27,11 @@ const Sobre = () => {
 
     emailjs
       .send(
-        "service_luqnkbv", 
-        "template_fvel4hj", 
+        "service_luqnkbv",
+        "template_fvel4hj",
         {
           user_name: name,
-          user_email: email,
+          from_email: email,
           message: mensagem,
         },
         "3FzkE4FlUgKmq3F9L"
@@ -77,11 +77,10 @@ const Sobre = () => {
       <div style={cardStyle}>
         <h2 style={cardTitle}>Descrição</h2>
         <p style={cardText}>
-          Esse projeto foi desenvolvido usando <strong>React</strong> e a{" "}
-          <strong>API oficial de Rick and Morty</strong>. Ele exibe
-          personagens, episódios e localizações do multiverso, tudo com uma
-          pegada futurista e estilizada. A ideia é colocar em prática o
-          consumo de APIs, roteamento e componentização moderna.
+          Fizemos esse projeto em React para praticar e entender melhor como consumir dados de uma API. Usamos a API do Rick and Morty para mostrar as listas de personagens, 
+          episódios e locais da série. Dá pra ver nome, status, episódio, data de lançamento e detalhes de cada lugar. Organizamos tudo com o React Router para navegar entre 
+          as páginas e usamos o Axios para buscar as informações direto da API. A ideia foi montar algo simples, mas que funcionasse direito e tivesse uma cara parecida com 
+          o clima de Rick and Morty. Foi uma boa prática para melhorar nossas habilidades em React, trabalhar com componentes e mexer com integração de dados.
         </p>
       </div>
 
