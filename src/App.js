@@ -43,7 +43,6 @@ function AppContent() {
     <Routes>
       <Route path="/" element={<Login />} />
       <Route path="/main" element={<Menu><Main /></Menu>} />
-      <Route path="/footer" element={<Menu><Footer insta="@marcosamiguel" whats="32 98401-5080" /></Menu>} />
       <Route path="/Episodios" element={<Menu><Episodios /></Menu>} />
       <Route path="/personagens" element={<Menu><Personagens /></Menu>} />
       <Route path="/localizacao" element={<Menu><Localizacao /></Menu>} />

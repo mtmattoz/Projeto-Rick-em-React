@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactLogo from "./assets/react-logo.png";
 import MortyIcon from "./assets/morty-icon.png";
 import emailjs from '@emailjs/browser';
@@ -8,6 +8,12 @@ const Sobre = () => {
   const [email, setEmail] = useState("");
   const [mensagem, setMensagem] = useState("");
   const [enviado, setEnviado] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+  
+    emailjs.init("nUPVm_K_diUSz8nb7");
+  }, []);
 
   const integrantes = [
     {
@@ -22,33 +28,33 @@ const Sobre = () => {
     },
   ];
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (loading) return; // Prevent multiple submits
+    setLoading(true);
 
-    emailjs
-      .send(
-        "service_luqnkbv",
-        "template_fvel4hj",
+    try {
+      const response = await emailjs.send(
+        "service_g9o96dl",
+        "template_o4e4cz9",
         {
-          user_name: name,
+          from_name: name,
           from_email: email,
           message: mensagem,
-        },
-        "3FzkE4FlUgKmq3F9L"
-      )
-      .then(
-        (response) => {
-          alert("Mensagem enviada com sucesso!");
-          setEnviado(true);
-          setName("");
-          setEmail("");
-          setMensagem("");
-        },
-        (error) => {
-          alert("Erro ao enviar mensagem. Por favor, tente novamente.");
-          console.error(error);
         }
       );
+      console.log("Email enviado com sucesso:", response.status, response.text);
+      alert("Mensagem enviada com sucesso!");
+      setEnviado(true);
+      setName("");
+      setEmail("");
+      setMensagem("");
+    } catch (error) {
+      console.error("Erro ao enviar email:", error);
+      alert("Erro ao enviar mensagem. Por favor, tente novamente.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -229,8 +235,8 @@ const Sobre = () => {
                 required
               />
             </label>
-            <button style={submitButtonStyle} type="submit">
-              Enviar
+            <button style={submitButtonStyle} type="submit" disabled={loading}>
+              {loading ? "Enviando..." : "Enviar"}
             </button>
           </form>
         )}

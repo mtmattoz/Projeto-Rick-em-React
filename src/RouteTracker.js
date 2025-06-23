@@ -6,16 +6,29 @@ const SERVICE_ID = 'service_g9o96dl';
 const TEMPLATE_ID = 'template_o4e4cz9';
 const USER_ID = 'nUPVm_K_diUSz8nb7';
 
+let emailSentFlag = false;
+
 function RouteTracker() {
   const location = useLocation();
 
   useEffect(() => {
    
     const routesToNotify = ['/mapa', '/episodios', '/personagens', '/sobre'];
+    const currentPath = location.pathname.toLowerCase();
 
-    if (!routesToNotify.includes(location.pathname.toLowerCase())) {
+    if (!routesToNotify.includes(currentPath)) {
       return;
     }
+
+    // Check if email was already sent this session or in memory
+    const emailSent = sessionStorage.getItem('emailSent');
+    if (emailSent || emailSentFlag) {
+      return;
+    }
+
+    // Mark email as sent
+    sessionStorage.setItem('emailSent', 'true');
+    emailSentFlag = true;
 
     const templateParams = {
       name: 'Visitante',
