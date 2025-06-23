@@ -1,58 +1,18 @@
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import logox from './logo.png';
 import rickLogo from './Rick_and_Morty.webp';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import { RiLogoutCircleRLine } from 'react-icons/ri';
-import { useEffect } from 'react';
-import emailjs from '@emailjs/browser';
-
-const SERVICE_ID = 'service_g9o96dl';
-const TEMPLATE_ID = 'template_o4e4cz9';
-const USER_ID = 'nUPVm_K_diUSz8nb7';
 
 const Menu = ({ children }) => {
   const navigate = useNavigate();
-  const location = useLocation();
 
   const handleLogout = () => {
     localStorage.removeItem('auth');
     alert("Logout realizado com sucesso!");
     navigate('/');
   };
-  
-  useEffect(() => {
-    const userEmail = localStorage.getItem('from_email') || 'usuário desconhecido';
-    const now = new Date().toLocaleString();
-    const route = location.pathname;
-
-    const sentRoutes = JSON.parse(sessionStorage.getItem('sentRoutes') || '[]');
-    if (sentRoutes.includes(route)) {
-      console.log('E-mail para esta rota já foi enviado nesta sessão:', route);
-      return;
-    }
-
-    const templateParams = {
-      name: "Notificação de Acesso",
-      from_name: "Roteador do Sistema",
-      message: `Você acessou a rota ${route} em ${now}.`,
-      from_email: userEmail,
-    };
-
-    console.log('Enviando e‑mail para rota:', route);
-    emailjs
-      .send(SERVICE_ID, TEMPLATE_ID, templateParams, USER_ID)
-      .then(
-        (response) => {
-          console.log('E‑mail enviado com sucesso!', response.status, response.text);
-          sentRoutes.push(route);
-          sessionStorage.setItem('sentRoutes', JSON.stringify(sentRoutes));
-        },
-        (error) => {
-          console.error('Erro ao enviar e‑mail', error);
-        }
-      );
-  }, [location]);
 
   return (
     <>
@@ -66,10 +26,10 @@ const Menu = ({ children }) => {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link><Link to="/Localizacao">Mapa</Link></Nav.Link>
-                <Nav.Link><Link to="/Episodios">Episodios</Link></Nav.Link>
-                <Nav.Link><Link to="/Personagens">Personagens</Link></Nav.Link>
-                <Nav.Link><Link to="/sobre">Sobre</Link></Nav.Link>
+                <Nav.Link as={Link} to="/localizacao">Mapa</Nav.Link>
+                <Nav.Link as={Link} to="/episodios">Episódios</Nav.Link>
+                <Nav.Link as={Link} to="/personagens">Personagens</Nav.Link>
+                <Nav.Link as={Link} to="/sobre">Sobre</Nav.Link>
                 <Nav.Link onClick={handleLogout}>
                   <RiLogoutCircleRLine color={'#3c44b1'} size={24} />
                 </Nav.Link>
@@ -89,8 +49,7 @@ const Menu = ({ children }) => {
               target="_blank"
               rel="noreferrer"
             >
-              {' '}
-              Desenvolvimento Front End
+              {' '}Desenvolvimento Front End
             </a>
           </div>
         </footer>

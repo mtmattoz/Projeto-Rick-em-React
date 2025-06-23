@@ -17,7 +17,6 @@ const Erro404Rick = lazy(() => delayImport(() => import('./Erro404Rick'), 1500))
 const Menu = lazy(() => delayImport(() => import('./Menu'), 2000));
 const Login = lazy(() => delayImport(() => import('./Login'), 2000));
 const Main = lazy(() => delayImport(() => import('./Main'), 2000));
-const Footer = lazy(() => delayImport(() => import('./Footer'), 3000));
 const Personagens = lazy(() => delayImport(() => import('./Personagens'), 2000));
 const Localizacao = lazy(() => delayImport(() => import('./Localizacao'), 2000));
 const Episodios = lazy(() => delayImport(() => import('./Episodios'), 2000));

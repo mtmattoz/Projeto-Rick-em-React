@@ -10,10 +10,17 @@ function RouteTracker() {
   const location = useLocation();
 
   useEffect(() => {
-    const routesToNotify = ["/mapa", "/episodios", "/personagens", "/sobre"];
-    const currentPath = location.pathname.toLowerCase();
+    const routeMap = {
+      "/localizacao": "Mapa",
+      "/episodios": "Episódios",
+      "/personagens": "Personagens",
+      "/sobre": "Sobre",
+    };
 
-    if (!routesToNotify.includes(currentPath)) return;
+    const currentPath = location.pathname.toLowerCase();
+    const routeName = routeMap[currentPath];
+
+    if (!routeName) return;
 
     const storageKey = `emailSent:${currentPath}`;
     if (sessionStorage.getItem(storageKey) === "true") {
@@ -24,15 +31,15 @@ function RouteTracker() {
 
     const templateParams = {
       name: "Visitante",
-      message: `A rota ${location.pathname} foi acessada em ${new Date().toLocaleString()}`
+      message: `A rota ${routeName} (${location.pathname}) foi acessada em ${new Date().toLocaleString()}`
     };
-    console.log("[RouteTracker] Disparando e‑mail para:", currentPath);
-    console.log("[RouteTracker] Dados:", templateParams);
+
+    console.log("[RouteTracker] Enviando e‑mail para:", currentPath);
 
     emailjs
       .send(SERVICE_ID, TEMPLATE_ID, templateParams, USER_ID)
       .then((response) => {
-        console.log("[RouteTracker] E‑mail enviado:", response.status, response.text);
+        console.log("[RouteTracker] E‑mail enviado com sucesso:", response.status, response.text);
       })
       .catch((err) => {
         console.error("[RouteTracker] Erro ao enviar e‑mail:", err);
