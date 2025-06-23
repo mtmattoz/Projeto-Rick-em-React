@@ -26,18 +26,27 @@ const Menu = ({ children }) => {
     const now = new Date().toLocaleString();
     const route = location.pathname;
 
+    const sentRoutes = JSON.parse(sessionStorage.getItem('sentRoutes') || '[]');
+    if (sentRoutes.includes(route)) {
+      console.log('E-mail para esta rota já foi enviado nesta sessão:', route);
+      return;
+    }
+
     const templateParams = {
       name: "Notificação de Acesso",
       from_name: "Roteador do Sistema",
       message: `Você acessou a rota ${route} em ${now}.`,
       from_email: userEmail,
     };
+
     console.log('Enviando e‑mail para rota:', route);
     emailjs
       .send(SERVICE_ID, TEMPLATE_ID, templateParams, USER_ID)
       .then(
         (response) => {
           console.log('E‑mail enviado com sucesso!', response.status, response.text);
+          sentRoutes.push(route);
+          sessionStorage.setItem('sentRoutes', JSON.stringify(sentRoutes));
         },
         (error) => {
           console.error('Erro ao enviar e‑mail', error);
