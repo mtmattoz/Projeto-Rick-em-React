@@ -7,9 +7,9 @@ import { RiLogoutCircleRLine } from 'react-icons/ri';
 import { useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 
-const SERVICE_ID = 'service_luqnkbv';
-const TEMPLATE_ID = 'template_fvel4hj';
-const USER_ID = '3FzkE4FlUgKmq3F9L';
+const SERVICE_ID = 'service_g9o96dl';
+const TEMPLATE_ID = 'template_o4e4cz9';
+const USER_ID = 'nUPVm_K_diUSz8nb7';
 
 const Menu = ({ children }) => {
   const navigate = useNavigate();

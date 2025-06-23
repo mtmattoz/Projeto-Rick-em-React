@@ -21,7 +21,7 @@ function AppContent() {
     <Routes>
       <Route path="/" element={<Login />} />
       
-      {/* Todas as outras rotas protegidas */}
+
       <Route 
         path="/main" 
         element={

@@ -2,26 +2,27 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import emailjs from '@emailjs/browser';
 
-const SERVICE_ID = "service_luqnkbv";
-const TEMPLATE_ID = "template_fvel4hj";
-const USER_ID = "3FzkE4FlUgKmq3F9L";
+const SERVICE_ID = 'service_g9o96dl';
+const TEMPLATE_ID = 'template_o4e4cz9';
+const USER_ID = 'nUPVm_K_diUSz8nb7';
 
 function RouteTracker() {
   const location = useLocation();
 
   useEffect(() => {
-    const userEmail = localStorage.getItem("userEmail");
-    if (!userEmail) {
-      console.log("[RouteTracker] Nenhum e‑mail encontrado no localStorage.");
+   
+    const routesToNotify = ['/mapa', '/episodios', '/personagens', '/sobre'];
+
+    if (!routesToNotify.includes(location.pathname.toLowerCase())) {
       return;
     }
 
     const templateParams = {
-      name: userEmail, 
-      message: `Você acessou a rota ${location.pathname} em ${new Date().toLocaleString()}`
+      name: 'Visitante',
+      message: `A rota ${location.pathname} foi acessada em ${new Date().toLocaleString()}`
     };
     
-    console.log("[RouteTracker] Disparando e‑mail para:", userEmail);
+    console.log("[RouteTracker] Disparando e‑mail para: Visitante");
     console.log("[RouteTracker] Dados:", templateParams);
 
     emailjs
